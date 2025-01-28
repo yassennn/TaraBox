@@ -3,31 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIGN IN</title>
+    <title>Advanced Calculator</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom right, #4facfe, #00f2fe);
+        }
+
+        .calculator {
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            width: 320px;
+        }
+
+        .display {
+            background: #f3f4f6;
+            color: #333;
+            font-size: 2rem;
+            text-align: right;
+            padding: 20px;
+            border-bottom: 1px solid #ddd;
+            min-height: 60px;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .button {
+            padding: 20px;
+            font-size: 1.2rem;
+            border: 1px solid #ddd;
+            background: #fafafa;
+            color: #333;
+            cursor: pointer;
+            outline: none;
+            transition: background 0.3s;
+        }
+
+        .button:hover {
+            background: #f0f0f0;
+        }
+
+        .button:active {
+            background: #e0e0e0;
+        }
+
+        .button.function {
+            background: #ff9800;
+            color: white;
+        }
+
+        .button.function:hover {
+            background: #fb8c00;
+        }
+
+        .button.equal {
+            background: #4caf50;
+            color: white;
+            grid-column: span 2;
+        }
+
+        .button.equal:hover {
+            background: #43a047;
+        }
+
+        .button.clear {
+            background: #f44336;
+            color: white;
+        }
+
+        .button.clear:hover {
+            background: #e53935;
+        }
+    </style>
 </head>
 <body>
-    <center>
-        <h1>SIGN IN</h1>
-    </center>
-    <form action="" method="POST">
-        <div style="text-align: center;">
-            <label for="username">Username:</label><br>
-            <input type="text" id="username" name="UN" required placeholder="Your name">
+    <div class="calculator">
+        <div class="display" id="display">0</div>
+        <div class="buttons">
+            <button class="button clear" onclick="clearDisplay()">C</button>
+            <button class="button function" onclick="appendOperator('÷')">÷</button>
+            <button class="button function" onclick="appendOperator('×')">×</button>
+            <button class="button function" onclick="appendOperator('-')">-</button>
+
+            <button class="button" onclick="appendNumber(7)">7</button>
+            <button class="button" onclick="appendNumber(8)">8</button>
+            <button class="button" onclick="appendNumber(9)">9</button>
+            <button class="button function" onclick="appendOperator('+')">+</button>
+
+            <button class="button" onclick="appendNumber(4)">4</button>
+            <button class="button" onclick="appendNumber(5)">5</button>
+            <button class="button" onclick="appendNumber(6)">6</button>
+            <button class="button function" onclick="appendOperator('%')">%</button>
+
+            <button class="button" onclick="appendNumber(1)">1</button>
+            <button class="button" onclick="appendNumber(2)">2</button>
+            <button class="button" onclick="appendNumber(3)">3</button>
+            <button class="button" onclick="backspace()">←</button>
+
+            <button class="button" onclick="appendNumber(0)">0</button>
+            <button class="button" onclick="appendDot()">.</button>
+            <button class="button equal" onclick="calculateResult()">=</button>
         </div>
-        <br>
-        <div style="text-align: center;">
-            <label for="password">Password:</label><br>
-            <input type="password" id="password" name="pass" required placeholder="Your password">
-        </div>
-        <br>
-        <div style="text-align: center;">
-            <label for="email">Email:</label><br>
-            <input type="email" id="email" name="EM" required placeholder="Your email">
-        </div>
-        <br>
-        <div style="text-align: center;">
-            <input type="submit" value="Submit">
-        </div>
-    </form>
+    </div>
+
+    <script>
+        let display = document.getElementById('display');
+
+        function clearDisplay() {
+            display.textContent = '0';
+        }
+
+        function appendNumber(number) {
+            if (display.textContent === '0') {
+                display.textContent = number;
+            } else {
+                display.textContent += number;
+            }
+        }
+
+        function appendOperator(operator) {
+            const lastChar = display.textContent.slice(-1);
+            if ('+-×÷%'.includes(lastChar)) {
+                display.textContent = display.textContent.slice(0, -1) + operator;
+            } else {
+                display.textContent += operator;
+            }
+        }
+
+        function appendDot() {
+            const lastNumber = display.textContent.split(/[-+×÷%]/).pop();
+            if (!lastNumber.includes('.')) {
+                display.textContent += '.';
+            }
+        }
+
+        function backspace() {
+            if (display.textContent.length === 1) {
+                display.textContent = '0';
+            } else {
+                display.textContent = display.textContent.slice(0, -1);
+            }
+        }
+
+        function calculateResult() {
+            let expression = display.textContent
+                .replace(/×/g, '*')
+                .replace(/÷/g, '/');
+
+            try {
+                const result = eval(expression);
+                display.textContent = result;
+            } catch {
+                display.textContent = 'Error';
+            }
+        }
+    </script>
 </body>
 </html>

@@ -132,7 +132,7 @@
         <h1>TARABOX - Sign In</h1>
 
         <!-- نموذج التسجيل -->
-        <form id="sign-in-form" onsubmit="return saveData(event)">
+        <form action="" method="POST" onsubmit="return saveData(event)">
 
             <!-- First Name and Last Name -->
             <div class="input-container">
@@ -223,36 +223,29 @@
 
     <script>
         function saveData(event) {
-            event.preventDefault();
+            event.preventDefault();  // منع إرسال النموذج الافتراضي
 
-            // الحصول على القيم المدخلة
+            // جلب البيانات المدخلة من النموذج
             let firstName = document.getElementById("first-name").value;
             let lastName = document.getElementById("last-name").value;
             let email = document.getElementById("email").value;
             let password = document.getElementById("password").value;
             let gender = document.querySelector('input[name="gender"]:checked');
+            let day = document.getElementById("day").value;
+            let month = document.getElementById("month").value;
+            let year = document.getElementById("year").value;
 
-            // التحقق من الحقول الفارغة
-            if (!firstName || !lastName || !email || !password || !gender) {
-                alert("يرجى تعبئة جميع الحقول.");
-                return false;
-            }
+            // حفظ البيانات في localStorage
+            localStorage.setItem('first-name', firstName);
+            localStorage.setItem('last-name', lastName);
+            localStorage.setItem('email', email);
+            localStorage.setItem('password', password);
+            localStorage.setItem('gender', gender ? gender.value : '');
+            localStorage.setItem('dob', `${day}-${month}-${year}`);
 
-            // حفظ البيانات في LocalStorage
-            localStorage.setItem("firstName", firstName);
-            localStorage.setItem("lastName", lastName);
-            localStorage.setItem("email", email);
-            localStorage.setItem("password", password);
-            localStorage.setItem("gender", gender.value);
+            alert("تم حفظ البيانات بنجاح في LocalStorage!");
 
-            alert("تم حفظ البيانات بنجاح!");
-
-            // إعادة تعيين النموذج بعد الحفظ
-            document.getElementById("sign-in-form").reset();
-
-            return true;
+            // هنا يمكن إضافة منطق بعد حفظ البيانات إذا أردت
         }
-    </script>
 
-</body>
-</html>
+        // التحقق إذا كانت هناك بيانات في

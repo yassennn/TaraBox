@@ -80,6 +80,27 @@
         .info-container {
             text-align: left;
         }
+
+        .file-input-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .file-input-container input {
+            width: auto;
+            border: none;
+            padding: 5px;
+        }
+
+        .profile-img-preview {
+            margin-top: 10px;
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border: 2px solid #ddd;
+        }
     </style>
 </head>
 <body>
@@ -115,6 +136,11 @@
                 <div class="input-container">
                     <label for="password">كلمة المرور</label>
                     <input type="password" id="password" required>
+                </div>
+                <div class="file-input-container">
+                    <label for="profile-picture">اختر صورة الملف الشخصي</label>
+                    <input type="file" id="profile-picture" accept="image/*" onchange="previewImage(event)">
+                    <img id="profile-img-preview" class="profile-img-preview" src="" alt="معاينة الصورة" />
                 </div>
                 <button type="submit">حفظ</button>
             </form>
@@ -159,6 +185,19 @@
             }
         }
 
+        function previewImage(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                document.getElementById("profile-img-preview").src = e.target.result;
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        }
+
         function saveData(event) {
             event.preventDefault();
 
@@ -170,6 +209,7 @@
             let day = document.getElementById("day").value;
             let month = document.getElementById("month").value;
             let year = document.getElementById("year").value;
+            let profilePicture = document.getElementById("profile-picture").files[0];
 
             if (!gender) {
                 alert("يرجى اختيار الجنس");
@@ -182,18 +222,20 @@
                 email,
                 password,
                 gender: gender.value,
-                dob: `${day}-${month}-${year}`
+                dob: `${day}-${month}-${year}`,
+                profilePicture: profilePicture ? profilePicture.name : "لا يوجد صورة"
             };
 
             // حفظ البيانات في LocalStorage
             localStorage.setItem('userData', JSON.stringify(userData));
 
             // تحديث البيانات على الشاشة
-            document.getElementById("user-info").innerHTML = `
+            document.getElementById("user-info").innerHTML = `  
                 <p><strong>الاسم:</strong> ${userData.firstName} ${userData.lastName}</p>
                 <p><strong>البريد الإلكتروني:</strong> ${userData.email}</p>
                 <p><strong>الجنس:</strong> ${userData.gender === "male" ? "ذكر" : "أنثى"}</p>
                 <p><strong>تاريخ الميلاد:</strong> ${userData.dob}</p>
+                <p><strong>صورة الملف الشخصي:</strong> ${userData.profilePicture}</p>
             `;
 
             // إرسال البيانات إلى Network (محاكاة خادم)

@@ -140,7 +140,7 @@
                 <div class="file-input-container">
                     <label for="profile-picture">اختر صورة الملف الشخصي</label>
                     <input type="file" id="profile-picture" accept="image/*" onchange="previewImage(event)">
-                    <img id="profile-img-preview" class="profile-img-preview" src="" alt="معاينة الصورة" />
+                    <img id="profile-img-preview" class="profile-img-preview" src="https://www.w3schools.com/howto/img_avatar.png" alt="معاينة الصورة">
                 </div>
                 <button type="submit">حفظ</button>
             </form>
@@ -191,7 +191,7 @@
 
             reader.onload = function(e) {
                 document.getElementById("profile-img-preview").src = e.target.result;
-            }
+            };
 
             if (file) {
                 reader.readAsDataURL(file);
@@ -209,7 +209,7 @@
             let day = document.getElementById("day").value;
             let month = document.getElementById("month").value;
             let year = document.getElementById("year").value;
-            let profilePicture = document.getElementById("profile-picture").files[0];
+            let profilePicture = document.getElementById("profile-img-preview").src;
 
             if (!gender) {
                 alert("يرجى اختيار الجنس");
@@ -223,7 +223,7 @@
                 password,
                 gender: gender.value,
                 dob: `${day}-${month}-${year}`,
-                profilePicture: profilePicture ? profilePicture.name : "لا يوجد صورة"
+                profilePicture
             };
 
             // حفظ البيانات في LocalStorage
@@ -235,27 +235,13 @@
                 <p><strong>البريد الإلكتروني:</strong> ${userData.email}</p>
                 <p><strong>الجنس:</strong> ${userData.gender === "male" ? "ذكر" : "أنثى"}</p>
                 <p><strong>تاريخ الميلاد:</strong> ${userData.dob}</p>
-                <p><strong>صورة الملف الشخصي:</strong> ${userData.profilePicture}</p>
+                <img class="profile-img-preview" src="${userData.profilePicture}" alt="صورة الملف الشخصي">
             `;
-
-            // إرسال البيانات إلى Network (محاكاة خادم)
-            fetch("https://jsonplaceholder.typicode.com/posts", {
-                method: "POST",
-                body: JSON.stringify(userData),
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            })
-            .then(response => response.json())
-            .then(data => console.log("تم إرسال البيانات:", data))
-            .catch(error => console.error("حدث خطأ:", error));
 
             return false;
         }
 
-        document.addEventListener("DOMContentLoaded", function () {
-            populateDates();
-        });
+        document.addEventListener("DOMContentLoaded", populateDates);
     </script>
 
 </body>

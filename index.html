@@ -11,35 +11,29 @@
             color: #495057;
             margin: 0;
             padding: 0;
-            text-align: center;
-        }
-
-        .container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 15px;
-            padding: 20px;
         }
 
-        .form-container, .info-container {
+        .container {
+            width: 90%;
+            max-width: 400px;
             background: #fff;
-            padding: 20px;
+            padding: 15px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 380px;
-            text-align: right;
+            margin-top: 20px;
         }
 
         h1 {
             color: #007BFF;
             text-align: center;
+            font-size: 1.5em;
         }
 
         .input-container {
             margin-bottom: 10px;
-            text-align: right;
         }
 
         label {
@@ -50,16 +44,10 @@
 
         input, select {
             width: 100%;
-            padding: 7px;
+            padding: 8px;
             border: 1px solid #ddd;
             border-radius: 5px;
             box-sizing: border-box;
-            font-size: 14px;
-        }
-
-        input:focus, select:focus {
-            border-color: #007BFF;
-            outline: none;
         }
 
         .gender-container {
@@ -69,14 +57,13 @@
 
         button {
             width: 100%;
-            padding: 8px;
+            padding: 10px;
             background-color: #007BFF;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             transition: 0.3s;
-            font-size: 14px;
         }
 
         button:hover {
@@ -84,106 +71,73 @@
         }
 
         .file-input-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .file-input-container input {
-            width: auto;
-            border: none;
-            padding: 5px;
+            text-align: center;
         }
 
         .profile-img-preview {
-            margin-top: 8px;
+            margin-top: 10px;
             border-radius: 50%;
-            width: 100px;
-            height: 100px;
+            width: 80px;
+            height: 80px;
             object-fit: cover;
             border: 2px solid #ddd;
         }
 
-        @media (max-width: 480px) {
-            .container {
-                padding: 10px;
-            }
-
-            .form-container {
-                max-width: 90%;
-                padding: 15px;
-            }
-
-            .input-container label {
-                font-size: 13px;
-            }
-
-            input, select {
-                padding: 6px;
-                font-size: 13px;
-            }
-
-            button {
-                padding: 7px;
-                font-size: 13px;
-            }
-
-            .profile-img-preview {
-                width: 90px;
-                height: 90px;
-            }
+        .info-container {
+            width: 90%;
+            max-width: 400px;
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 15px;
         }
     </style>
 </head>
 <body>
 
     <h1>تسجيل الدخول</h1>
-
     <div class="container">
-        <!-- نموذج التسجيل -->
-        <div class="form-container">
-            <form id="signInForm" onsubmit="return saveData(event)">
-                <div class="input-container">
-                    <label for="first-name">الاسم الأول</label>
-                    <input type="text" id="first-name" required>
-                </div>
-                <div class="input-container">
-                    <label for="last-name">الاسم الأخير</label>
-                    <input type="text" id="last-name" required>
-                </div>
-                <div class="input-container">
-                    <label>تاريخ الميلاد</label>
-                    <select id="day"></select>
-                    <select id="month"></select>
-                    <select id="year"></select>
-                </div>
-                <div class="gender-container">
-                    <label><input type="radio" name="gender" value="female"> أنثى</label>
-                    <label><input type="radio" name="gender" value="male"> ذكر</label>
-                </div>
-                <div class="input-container">
-                    <label for="email">البريد الإلكتروني أو الهاتف</label>
-                    <input type="email" id="email" required>
-                </div>
-                <div class="input-container">
-                    <label for="password">كلمة المرور</label>
-                    <input type="password" id="password" required>
-                </div>
-                <div class="file-input-container">
-                    <label for="profile-picture">اختر صورة الملف الشخصي</label>
-                    <input type="file" id="profile-picture" accept="image/*" onchange="previewImage(event)">
-                    <img id="profile-img-preview" class="profile-img-preview" src="https://www.w3schools.com/howto/img_avatar.png" alt="معاينة الصورة">
-                </div>
-                <button type="submit">حفظ</button>
-            </form>
-        </div>
-
-        <!-- بيانات المستخدم -->
-        <div class="info-container">
-            <h2>بيانات المستخدم</h2>
-            <div id="user-info">
-                <p>لا توجد بيانات حتى الآن.</p>
+        <form id="signInForm" onsubmit="return saveData(event)">
+            <div class="input-container">
+                <label for="first-name">الاسم الأول</label>
+                <input type="text" id="first-name" required>
             </div>
+            <div class="input-container">
+                <label for="last-name">الاسم الأخير</label>
+                <input type="text" id="last-name" required>
+            </div>
+            <div class="input-container">
+                <label>تاريخ الميلاد</label>
+                <select id="day"></select>
+                <select id="month"></select>
+                <select id="year"></select>
+            </div>
+            <div class="gender-container">
+                <label><input type="radio" name="gender" value="female"> أنثى</label>
+                <label><input type="radio" name="gender" value="male"> ذكر</label>
+            </div>
+            <div class="input-container">
+                <label for="email">البريد الإلكتروني</label>
+                <input type="email" id="email" required>
+            </div>
+            <div class="input-container">
+                <label for="password">كلمة المرور</label>
+                <input type="password" id="password" required>
+            </div>
+            <div class="file-input-container">
+                <label for="profile-picture">صورة الملف الشخصي</label>
+                <input type="file" id="profile-picture" accept="image/*" onchange="previewImage(event)">
+                <img id="profile-img-preview" class="profile-img-preview" src="https://www.w3schools.com/howto/img_avatar.png" alt="صورة افتراضية">
+            </div>
+            <button type="submit">حفظ</button>
+        </form>
+    </div>
+
+    <div class="info-container">
+        <h2>بيانات المستخدم</h2>
+        <div id="user-info">
+            <p>لا توجد بيانات حتى الآن.</p>
         </div>
     </div>
 
@@ -194,71 +148,36 @@
             let yearSelect = document.getElementById("year");
 
             for (let i = 1; i <= 31; i++) {
-                let option = document.createElement("option");
-                option.value = i;
-                option.textContent = i;
-                daySelect.appendChild(option);
+                daySelect.innerHTML += `<option value="${i}">${i}</option>`;
             }
 
             let months = ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"];
             for (let i = 0; i < months.length; i++) {
-                let option = document.createElement("option");
-                option.value = i + 1;
-                option.textContent = months[i];
-                monthSelect.appendChild(option);
+                monthSelect.innerHTML += `<option value="${i+1}">${months[i]}</option>`;
             }
 
             let currentYear = new Date().getFullYear();
             for (let i = currentYear; i >= 1900; i--) {
-                let option = document.createElement("option");
-                option.value = i;
-                option.textContent = i;
-                yearSelect.appendChild(option);
+                yearSelect.innerHTML += `<option value="${i}">${i}</option>`;
             }
         }
 
         function previewImage(event) {
             const file = event.target.files[0];
-            const reader = new FileReader();
-
-            reader.onload = function(e) {
-                document.getElementById("profile-img-preview").src = e.target.result;
-            };
-
             if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => document.getElementById("profile-img-preview").src = e.target.result;
                 reader.readAsDataURL(file);
             }
         }
 
         function saveData(event) {
             event.preventDefault();
-
-            let firstName = document.getElementById("first-name").value;
-            let lastName = document.getElementById("last-name").value;
-            let email = document.getElementById("email").value;
-            let password = document.getElementById("password").value;
-            let gender = document.querySelector('input[name="gender"]:checked');
-            let day = document.getElementById("day").value;
-            let month = document.getElementById("month").value;
-            let year = document.getElementById("year").value;
-            let profilePicture = document.getElementById("profile-img-preview").src;
-
-            if (!gender) {
-                alert("يرجى اختيار الجنس");
-                return false;
-            }
-
-            document.getElementById("user-info").innerHTML = `
-                <p><strong>الاسم:</strong> ${firstName} ${lastName}</p>
-                <p><strong>البريد الإلكتروني:</strong> ${email}</p>
-                <p><strong>الجنس:</strong> ${gender.value === "male" ? "ذكر" : "أنثى"}</p>
-                <p><strong>تاريخ الميلاد:</strong> ${day}-${month}-${year}</p>
-                <img class="profile-img-preview" src="${profilePicture}" alt="صورة الملف الشخصي">
-            `;
+            document.getElementById("user-info").innerHTML = `<p><strong>تم الحفظ بنجاح!</strong></p>`;
+            return false;
         }
 
         document.addEventListener("DOMContentLoaded", populateDates);
     </script>
-
 </body>
 </html>

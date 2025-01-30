@@ -15,10 +15,11 @@
 
         .container {
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
             align-items: flex-start;
             gap: 20px;
-            padding: 40px;
+            padding: 20px;
         }
 
         .form-container, .info-container {
@@ -26,7 +27,8 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 350px;
+            width: 100%;
+            max-width: 400px;
         }
 
         h1 {
@@ -96,10 +98,30 @@
         .profile-img-preview {
             margin-top: 10px;
             border-radius: 50%;
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
             object-fit: cover;
             border: 2px solid #ddd;
+        }
+
+        /* تحسين التخطيط للشاشات الصغيرة */
+        @media (max-width: 600px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+                padding: 10px;
+            }
+
+            .form-container, .info-container {
+                width: 100%;
+                max-width: 100%;
+                padding: 15px;
+            }
+
+            .profile-img-preview {
+                width: 100px;
+                height: 100px;
+            }
         }
     </style>
 </head>
@@ -216,29 +238,13 @@
                 return false;
             }
 
-            let userData = {
-                firstName,
-                lastName,
-                email,
-                password,
-                gender: gender.value,
-                dob: `${day}-${month}-${year}`,
-                profilePicture
-            };
-
-            // حفظ البيانات في LocalStorage
-            localStorage.setItem('userData', JSON.stringify(userData));
-
-            // تحديث البيانات على الشاشة
-            document.getElementById("user-info").innerHTML = `  
-                <p><strong>الاسم:</strong> ${userData.firstName} ${userData.lastName}</p>
-                <p><strong>البريد الإلكتروني:</strong> ${userData.email}</p>
-                <p><strong>الجنس:</strong> ${userData.gender === "male" ? "ذكر" : "أنثى"}</p>
-                <p><strong>تاريخ الميلاد:</strong> ${userData.dob}</p>
-                <img class="profile-img-preview" src="${userData.profilePicture}" alt="صورة الملف الشخصي">
+            document.getElementById("user-info").innerHTML = `
+                <p><strong>الاسم:</strong> ${firstName} ${lastName}</p>
+                <p><strong>البريد الإلكتروني:</strong> ${email}</p>
+                <p><strong>الجنس:</strong> ${gender.value === "male" ? "ذكر" : "أنثى"}</p>
+                <p><strong>تاريخ الميلاد:</strong> ${day}-${month}-${year}</p>
+                <img class="profile-img-preview" src="${profilePicture}" alt="صورة الملف الشخصي">
             `;
-
-            return false;
         }
 
         document.addEventListener("DOMContentLoaded", populateDates);
